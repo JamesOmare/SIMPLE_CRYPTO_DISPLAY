@@ -3,6 +3,7 @@
 <table class="table table-dark table-striped">
     <thead>
       <tr>
+        <th scope="col">Rank#</th>
         <th scope="col">Name</th>
         <th scope="col">Symbol</th>
         <th scope="col">Slug</th>
@@ -10,23 +11,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">{{_name}}</th>
-        <td>{{_symbol}}</td>
-        <td>{{_slug}}</td>
-        <td>{{_price}}</td>
-      </tr>
-      <!-- <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-      </tr> -->
+
+        {% for item in _data %}
+        <tr>
+          <th scope="row">{{loop.index}}</th>
+          <td>{{item['name']}}</td>
+          <td>{{item['symbol']}}</td>
+          <td>{{item['slug']}}</td>
+          <td>{{'$'"{:,.2f}".format(item['quote']['USD']['price'])}}</td>
+        </tr>
+        {% endfor %}
+
     </tbody>
   </table>
 

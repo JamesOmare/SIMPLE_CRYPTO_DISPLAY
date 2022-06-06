@@ -32,13 +32,8 @@ def coin():
             try:
                 response = session.get(url, params=parameters)
                 data = json.loads(response.text)
-                #first_currency = data['data'][0]
-                currency_name = data['data'][0]['name']
-                currency_symbol = data['data'][0]['symbol']
-                currency_slug = data['data'][0]['slug']
-                currency_usd_price = data['data'][0]['quote']['USD']['price']
-                usd_price = '$'"{:,.2f}".format(currency_usd_price)
-
+                formated_data = data['data']
+                
             except (ConnectionError, Timeout, TooManyRedirects) as e:
                 print(e)
 
@@ -49,10 +44,7 @@ def coin():
 
     return render_template(
         'coins.html', 
-        _name = currency_name, 
-        _symbol = currency_symbol, 
-        _slug = currency_slug, 
-        _price = usd_price
+        _data= formated_data,
         )
 
 @crypto.get('/no_data')
