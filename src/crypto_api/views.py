@@ -23,7 +23,7 @@ def coin():
             }
             headers = {
                 'Accepts': 'application/json',
-                'X-CMC_PRO_API_KEY': os.environ['X-CMC_PRO_API_KEY']
+                'X-CMC_PRO_API_KEY': os.environ.get('X-CMC_PRO_API_KEY')
             }
 
             session = Session()
@@ -32,10 +32,11 @@ def coin():
             try:
                 response = session.get(url, params=parameters)
                 data = json.loads(response.text)
-                formated_data = data['data']
+                formated_data = data.get('data')
+                print(formated_data)
                 
             except (ConnectionError, Timeout, TooManyRedirects) as e:
-                print(e)
+                print('Error in api call', e)
 
             
         else:
